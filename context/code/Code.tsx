@@ -29,7 +29,10 @@ const Code = ({ children, className }: CodeProps) => {
       lineHeight: "1.2rem",
     },
 
-    attribute: {
+    "attr-name": {
+      color: "red",
+    },
+    "attr-value": {
       color: "red",
     },
   };
