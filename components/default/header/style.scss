@@ -1,0 +1,20 @@
+@use "@/app/(client)/scss/variables" as *;
+
+header {
+  @include full-width;
+  display: flex;
+  padding-block: rem(5);
+  position: sticky;
+  top: 0;
+  background-color: $c-bg;
+  z-index: 11;
+
+  .header {
+    background-color: $c-fg;
+    border-radius: $b-radius;
+    width: 100%;
+    display: grid;
+    place-content: center;
+    height: rem(50);
+  }
+}
