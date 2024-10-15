@@ -28,11 +28,15 @@ const Code = ({ children, className }: CodeProps) => {
       color: "hsl(0,0%,93%)",
       lineHeight: "1.2rem",
     },
+<<<<<<< Updated upstream
 
     "attr-name": {
       color: "red",
     },
     "attr-value": {
+=======
+    attribute: {
+>>>>>>> Stashed changes
       color: "red",
     },
   };
