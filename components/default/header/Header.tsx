@@ -6,7 +6,7 @@ const Header = () => {
     <header id="Header">
       <section className="header">
         <Link href="/">
-          the circl studio <span>Docs</span>
+          thecirclstudio<span>/docs</span>
         </Link>
       </section>
     </header>

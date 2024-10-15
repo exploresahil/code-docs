@@ -28,18 +28,30 @@ const Code = ({ children, className }: CodeProps) => {
       color: "hsl(0,0%,93%)",
       lineHeight: "1.2rem",
     },
-<<<<<<< Updated upstream
-
+    operator: {
+      color: "hsl(0,0%,93%)"
+    },
+    keyword: {
+      color : "hsl(341,90%,67%)"
+    },
+    function: {
+      color : "hsl(341,90%,67%)"
+    },
     "attr-name": {
-      color: "red",
+      color : "hsl(275,80%,71%)"
     },
     "attr-value": {
-=======
-    attribute: {
->>>>>>> Stashed changes
-      color: "red",
+      color: "hsl(131,43%,57%)"
     },
+    string:{
+      color: "hsl(131,43%,57%)"
+    },
+    tag: {
+      color: "hsl(131,43%,57%)"
+    }
   };
+
+ //console.log('customStyle->',customStyle)
 
   const handleCopy = () => {
     if (navigator.clipboard) {
@@ -61,17 +73,18 @@ const Code = ({ children, className }: CodeProps) => {
         </div>
         {copy ? (
           <button>
-            <Check size={16} /> Copied!
+            <Check size={16} />
           </button>
         ) : (
           <button onClick={handleCopy}>
-            <Copy size={16} /> Copy Code
+            <Copy size={16} />
           </button>
         )}
       </div>
       <SyntaxHighlighter
         language={language}
         style={customStyle}
+        wrapLines={true}
         showLineNumbers={true}
         lineNumberStyle={{ color: "hsl(0,0%,53%)" }}
       >

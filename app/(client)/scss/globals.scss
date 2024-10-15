@@ -1,6 +1,18 @@
 @use "./defaults";
+@use "@/app/(client)/scss/variables" as *;
 
 main {
   display: flex;
   flex-direction: column;
+
+  @include breakpoint(medium) {
+   flex-direction: row;
+  }
+
+  #Home, #docs {
+    width: 75%;
+    padding-inline: 2vw;
+  }
 }
+
+

@@ -1,20 +1,29 @@
 @use "@/app/(client)/scss/variables" as *;
 
 header {
-  @include full-width;
   display: flex;
   padding-block: rem(5);
   position: sticky;
   top: 0;
   background-color: $c-bg;
   z-index: 11;
+  border-bottom: $b-border;
 
   .header {
-    background-color: $c-fg;
+    @include full-width;
     border-radius: $b-radius;
     width: 100%;
-    display: grid;
-    place-content: center;
     height: rem(50);
+    display: flex;
+    align-items: center;
+
+    a {
+      font-weight: 500;
+
+      span {
+        color: $c-text-highlight;
+        opacity: 0.7;
+      }
+    }
   }
 }

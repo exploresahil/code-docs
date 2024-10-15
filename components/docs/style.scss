@@ -1,0 +1,34 @@
+@use "@/app/(client)/scss/variables" as *;
+
+#Docs {
+    @include full-width;
+    display: flex;
+    flex-direction: column;
+    gap: rem(20);
+
+    @include breakpoint(medium) {
+        width: 100%;
+        padding-inline: 2vw;
+    }
+
+    .date_time {
+        display: flex;
+        gap: rem(10);
+        padding-top: rem(10);
+
+        p {
+            font-size: rem(10);
+            line-height: rem(14);
+            padding-right: rem(10);
+            color: $c-text-highlight;
+            opacity: 0.75;
+        }
+    }
+
+    .md {
+        h1 {
+            font-size: rem(36);
+            font-weight: 600;
+        }
+    }
+}

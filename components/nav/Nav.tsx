@@ -2,6 +2,7 @@
 
 import "./style.scss";
 import { MarkdownFile } from "@/types/types";
+import { ChevronDown, ChevronRight } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
@@ -18,10 +19,15 @@ const Nav = ({ data }: { data: MarkdownFile[] }) => {
     return () => clearTimeout(timer);
   }, [searchTerm]);
 
-  return (
-    <nav id="Nav">
-      <button onClick={() => setOpenMenu(!openMenu)}>Menu</button>
+  useEffect(() => {
+    document.body.style.overflow = openMenu ? "hidden" : "auto";
+  }, [openMenu])
 
+  const chevSize = 20 
+
+  return (
+    <nav id="Nav" className={openMenu? "open" : ""}>
+      <button onClick={() => setOpenMenu(!openMenu)}>{openMenu ? <span><ChevronDown size={chevSize}/></span> : <span><ChevronRight size={chevSize}/></span>}Menu</button>
       {openMenu && (
         <div className="menu">
           <div className="search">
