@@ -2,7 +2,7 @@
 
 import "./style.scss";
 import { MarkdownFile } from "@/types/types";
-import { ChevronDown, ChevronRight } from "lucide-react";
+import { ChevronDown, ChevronRight, RefreshCw } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import useResponsive from "@/hooks/useResponsive";
@@ -37,6 +37,18 @@ const Nav = ({ data }: { data: MarkdownFile[] }) => {
     }
   };
 
+  const isLessThan7Days = (date: string) => {
+    const sevenDaysAgo = new Date();
+    sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7);
+    return new Date(date) > sevenDaysAgo;
+  };
+
+  const filteredData = data.filter((object) =>
+    object.title.toLowerCase().includes(debouncedSearchTerm.toLowerCase())
+  );
+
+  const loaderSize = 20;
+
   return (
     <nav id="Nav" className={openMenu && isMobile ? "open" : ""}>
       {isMobile && (
@@ -57,31 +69,48 @@ const Nav = ({ data }: { data: MarkdownFile[] }) => {
         <div className="menu">
           <div className="search">
             <h5>Code:</h5>
-            <input
-              type="text"
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              placeholder="Search by title"
-            />
+            <div className="input">
+              <input
+                type="text"
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                placeholder="Search by title"
+              />
+              {searchTerm && searchTerm !== debouncedSearchTerm && (
+                <span>
+                  <RefreshCw
+                    size={loaderSize}
+                    strokeWidth={2}
+                    className="loader"
+                  />
+                </span>
+              )}
+            </div>
           </div>
-          {data &&
-            data
-              .filter((object) =>
-                object.title
-                  .toLowerCase()
-                  .includes(debouncedSearchTerm.toLowerCase())
-              )
-              .map((object) => (
-                <Suspense fallback={<p>Loading...</p>}>
+          {filteredData.length === 0 ? (
+            <span className="notFound">Not Found!</span>
+          ) : (
+            filteredData.map((object) => {
+              const isNew = isLessThan7Days(object.createdAt);
+              const isUpdated = isLessThan7Days(object.updatedAt);
+
+              return (
+                <Suspense fallback={<p>Loading...</p>} key={object.id}>
                   <Link
-                    key={object.id}
                     href={`/${object.id}`}
                     onClick={() => setOpenMenu(false)}
                   >
-                    {object.title}
+                    {object.title}{" "}
+                    {isNew ? (
+                      <span>New!</span>
+                    ) : isUpdated ? (
+                      <span>Updated!</span>
+                    ) : null}
                   </Link>
                 </Suspense>
-              ))}
+              );
+            })
+          )}
         </div>
       )}
     </nav>
