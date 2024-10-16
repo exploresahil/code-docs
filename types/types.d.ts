@@ -60,4 +60,5 @@ export type MarkdownFile = {
   content: string;
   createdAt: string;
   updatedAt: string;
+  category: string;
 };
