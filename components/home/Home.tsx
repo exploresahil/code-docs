@@ -1,23 +1,9 @@
 import Docs from "@/components/docs/Docs";
 import { MarkdownFile } from "@/types/types";
-
-const API: string = process.env.NEXT_PUBLIC_API as string;
-async function getData(): Promise<MarkdownFile[]> {
-  const res = await fetch(API, {
-    //next: { revalidate: 3600 },
-    cache: "no-store",
-    // cache: "reload",
-  });
-
-  if (!res.ok) {
-    throw new Error("Failed to fetch data");
-  }
-
-  return res.json();
-}
+import { getDocs } from "@/utils/GetDocs";
 
 const Home = async () => {
-  const data: MarkdownFile[] = await getData();
+  const data: MarkdownFile[] = await getDocs();
   //console.log("data->", data);
 
   const sortedData = data.sort(
