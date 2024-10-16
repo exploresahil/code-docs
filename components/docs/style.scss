@@ -8,10 +8,12 @@
 
   @include breakpoint(medium) {
     width: 100%;
+    max-width: 100%;
     padding-inline: 2vw;
   }
 
   @include breakpoint(large) {
+    max-width: 100%;
     padding-inline: rem(10) rem(0);
   }
 
@@ -45,6 +47,10 @@
 
 .home_docs {
   padding-top: rem(40);
+
+  h1 {
+    padding-right: 4vw;
+  }
 
   #docsSpan {
     color: $c-text-highlight;
