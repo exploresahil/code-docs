@@ -43,9 +43,14 @@ const Nav = ({ data }: { data: MarkdownFile[] }) => {
     return new Date(date) > sevenDaysAgo;
   };
 
-  const filteredData = data.filter((object) =>
-    object.title.toLowerCase().includes(debouncedSearchTerm.toLowerCase())
-  );
+  const filteredData = data
+    .map((object) => ({
+      ...object,
+      data: object.data.filter((item) =>
+        item.title.toLowerCase().includes(debouncedSearchTerm.toLowerCase())
+      ),
+    }))
+    .filter((object) => object.data.length > 0);
 
   const loaderSize = 20;
 
@@ -90,26 +95,68 @@ const Nav = ({ data }: { data: MarkdownFile[] }) => {
           {filteredData.length === 0 ? (
             <span className="notFound">Not Found!</span>
           ) : (
-            filteredData.map((object) => {
-              const isNew = isLessThan7Days(object.createdAt);
-              const isUpdated = isLessThan7Days(object.updatedAt);
-
-              return (
-                <Suspense fallback={<p>Loading...</p>} key={object.id}>
-                  <Link
-                    href={`/${object.id}`}
-                    onClick={() => setOpenMenu(false)}
-                  >
-                    {object.title}{" "}
-                    {isNew ? (
-                      <span>New!</span>
-                    ) : isUpdated ? (
-                      <span>Updated!</span>
-                    ) : null}
-                  </Link>
-                </Suspense>
-              );
-            })
+            filteredData.map((object) => (
+              <div className="nav_category">
+                {object.category ? (
+                  <>
+                    <p>{object.category}:</p>
+                    <div className="links">
+                      {object.data.map((item) => {
+                        {
+                          const isNew = isLessThan7Days(item.createdAt);
+                          const isUpdated = isLessThan7Days(item.updatedAt);
+                          return (
+                            <Suspense
+                              fallback={<p>Loading...</p>}
+                              key={object.category}
+                            >
+                              <Link
+                                href={`/${item.id}`}
+                                onClick={() => setOpenMenu(false)}
+                              >
+                                {item.title}{" "}
+                                {isNew ? (
+                                  <span>New!</span>
+                                ) : isUpdated ? (
+                                  <span>Updated!</span>
+                                ) : null}
+                              </Link>
+                            </Suspense>
+                          );
+                        }
+                      })}
+                    </div>
+                  </>
+                ) : (
+                  <>
+                    {object.data.map((item) => {
+                      {
+                        const isNew = isLessThan7Days(item.createdAt);
+                        const isUpdated = isLessThan7Days(item.updatedAt);
+                        return (
+                          <Suspense
+                            fallback={<p>Loading...</p>}
+                            key={object.category}
+                          >
+                            <Link
+                              href={`/${item.id}`}
+                              onClick={() => setOpenMenu(false)}
+                            >
+                              {item.title}{" "}
+                              {isNew ? (
+                                <span>New!</span>
+                              ) : isUpdated ? (
+                                <span>Updated!</span>
+                              ) : null}
+                            </Link>
+                          </Suspense>
+                        );
+                      }
+                    })}
+                  </>
+                )}
+              </div>
+            ))
           )}
         </div>
       )}

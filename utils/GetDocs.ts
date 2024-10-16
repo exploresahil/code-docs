@@ -1,6 +1,6 @@
+import { MarkdownFile } from "@/types/types";
 import fs from "fs";
 import path from "path";
-import { MarkdownFile } from "@/types/types";
 
 const extractTitleFromMarkdown = (content: string): string => {
   const match = content.match(/^#\s+(.*)/m);
@@ -15,6 +15,7 @@ const toSlug = (title: string): string => {
     .replace(/[^a-z0-9\-]/g, "")
     .replace(/--+/g, "-");
 };
+
 function getAllMarkdownFiles(dir: string, fileList: string[] = []): string[] {
   const files = fs.readdirSync(dir);
 
@@ -23,44 +24,51 @@ function getAllMarkdownFiles(dir: string, fileList: string[] = []): string[] {
     const stat = fs.statSync(filePath);
 
     if (stat.isDirectory()) {
-      // Recursively gather files from subdirectories
       getAllMarkdownFiles(filePath, fileList);
     } else if (path.extname(file) === ".md") {
-      fileList.push(filePath); // Add markdown files to the list
+      fileList.push(filePath);
     }
   });
 
   return fileList;
 }
 
-export function getDocs() {
+export function getDocs(): MarkdownFile[] {
   const markdownDir = path.join(process.cwd(), "markdowns");
   const files = getAllMarkdownFiles(markdownDir);
-  console.log(files);
 
-  const markdownFiles: MarkdownFile[] = files.map((filePath) => {
-    
+  const markdownFiles: MarkdownFile[] = [];
+
+  files.forEach((filePath) => {
     const content = fs.readFileSync(filePath, "utf-8");
     const stats = fs.statSync(filePath);
-    const fileName = path.basename(filePath)
+    const fileName = path.basename(filePath);
     const titleFromH1 = extractTitleFromMarkdown(content);
     const title =
       (titleFromH1 || fileName.replace(/\.md$/, "")).split("\\").at(-1) ?? "";
 
     const slug = toSlug(title);
-    const relativePath = path.relative(markdownDir, filePath); // Get relative path to markdownDir
-    const category = path.dirname(relativePath) === '.' ? 'root' : path.dirname(relativePath);
+    const relativePath = path.relative(markdownDir, filePath);
+    const category = path.dirname(relativePath) === '.' ? null : path.dirname(relativePath);
 
+    // Find the category in the markdownFiles array
+    let categoryEntry = markdownFiles.find(entry => entry.category === category);
 
-    return {
+    // If category doesn't exist, create it
+    if (!categoryEntry) {
+      categoryEntry = { category, data: [] };
+      markdownFiles.push(categoryEntry);
+    }
+
+    // Push the data into the corresponding category
+    categoryEntry.data.push({
       id: slug,
-      filename:fileName,
-      category,
+      filename: fileName,
       title,
       content,
       createdAt: stats.birthtime.toISOString(),
       updatedAt: stats.mtime.toISOString(),
-    };
+    });
   });
 
   return markdownFiles;

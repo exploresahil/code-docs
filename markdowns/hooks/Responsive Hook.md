@@ -21,7 +21,7 @@ This hook simplifies the process of making components adapt to various screen si
 <br>
 
 1. Create the useResponsive Hook
-    <br>
+   <br>
 
 ```tsx:@/hooks/useResponsive.ts
 'use client'; // Required for Next.js apps
@@ -55,7 +55,7 @@ const useResponsive = () => {
 
     // Listen for window resize events and update breakpoint
     window.addEventListener("resize", handleWindowResize);
-    
+
     // Initialize the breakpoint on mount
     handleWindowResize();
 
@@ -88,26 +88,27 @@ export default useResponsive;
 The breakpoint state holds the current screen size category. By default, it's initialized to "small".
 
 - Effect Hook (useEffect):
-This effect listens for resize events on the window. Every time the browser is resized, it updates the breakpoint value based on the new window width.
+  This effect listens for resize events on the window. Every time the browser is resized, it updates the breakpoint value based on the new window width.
 
 - getBreakpoint Function:
-This helper function determines the breakpoint category based on the current width. The categories are:
-<br>
-<br>
+  This helper function determines the breakpoint category based on the current width. The categories are:
+  <br>
+  <br>
 
-    ```tsx:@/hooks/useResponsive.ts
-    "small": for screens narrower than 820px (mobile)
-    "medium": for screens between 820px and 1024px (tablet)
-    "large": for screens between 1025px and 2040px (desktop)
-    "xLarge": for screens wider than 2040px (extra-large screens)
-    ```
-<br>
+      ```tsx:@/hooks/useResponsive.ts
+      "small": for screens narrower than 820px (mobile)
+      "medium": for screens between 820px and 1024px (tablet)
+      "large": for screens between 1025px and 2040px (desktop)
+      "xLarge": for screens wider than 2040px (extra-large screens)
+      ```
+
+  <br>
 
 - Responsive Helpers:
-Four boolean values (isMobile, isTablet, isDesktop, and isXLarge) help developers to check the current screen size category easily within their components.
+  Four boolean values (isMobile, isTablet, isDesktop, and isXLarge) help developers to check the current screen size category easily within their components.
 
 - useBreakpoint Utility:
-The useBreakpoint utility allows developers to determine the breakpoint for any arbitrary width. This could be useful if you want to check what category a given width falls into, aside from the current window width.
+  The useBreakpoint utility allows developers to determine the breakpoint for any arbitrary width. This could be useful if you want to check what category a given width falls into, aside from the current window width.
 
 <br>
 2. Using useResponsive in Components
@@ -154,14 +155,16 @@ The useResponsive hook provides an easy-to-implement and versatile way to handle
 
 ####Key Takeaways:
 <br>
+
 - Breakpoints: The hook defines four screen sizes: small (mobile), medium (tablet), large (desktop), and xLarge (extra-large screens).
 - Real-Time Responsiveness: The hook updates automatically when the window size changes.
 - Utilities: The hook provides helper flags (isMobile, isTablet, isDesktop, and isXLarge) to easily determine the current screen size category.
-<br>
-<br>
+  <br>
+  <br>
 
 ####Breakpoint Flags:
 <br>
+
 - breakpoint: Indicates the current screen size category ("small", "medium", "large", "xLarge").
 - isMobile: A boolean that is true when the screen size is small (typically mobile).
 - isTablet: A boolean that is true when the screen size is medium (typically tablet).

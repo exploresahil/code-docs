@@ -1,5 +1,5 @@
 import Docs from "@/components/docs/Docs";
-import { MarkdownFile } from "@/types/types";
+import { MarkdownFile, Data } from "@/types/types";
 import { getDocs } from "@/utils/GetDocs";
 
 type Props = {
@@ -8,12 +8,20 @@ type Props = {
 
 const Page = ({ params }: Props) => {
   const slug = params.docsId;
+  const markdownFiles: MarkdownFile[] = getDocs();
 
-  const data: MarkdownFile[] = getDocs();
-  const object = data.find((file) => file.id === slug);
+  const matchingData: Data | undefined = markdownFiles
+    .flatMap((file) => file.data)
+    .find((data) => data.id === slug);
+
+  if (!matchingData) {
+    return <section id="docs">No Matching Data Found</section>;
+  }
 
   return (
-    <section id="docs">{data && object && <Docs data={object} />}</section>
+    <section id="docs">
+      <Docs data={matchingData} />
+    </section>
   );
 };
 
