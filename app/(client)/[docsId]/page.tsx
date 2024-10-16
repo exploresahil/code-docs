@@ -6,10 +6,10 @@ type Props = {
   params: { docsId: string };
 };
 
-const Page = async ({ params }: Props) => {
+const Page = ({ params }: Props) => {
   const slug = params.docsId;
 
-  const data: MarkdownFile[] = await getDocs();
+  const data: MarkdownFile[] = getDocs();
   const object = data.find((file) => file.id === slug);
 
   return (

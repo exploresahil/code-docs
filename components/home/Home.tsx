@@ -2,8 +2,8 @@ import Docs from "@/components/docs/Docs";
 import { MarkdownFile } from "@/types/types";
 import { getDocs } from "@/utils/GetDocs";
 
-const Home = async () => {
-  const data: MarkdownFile[] = await getDocs();
+const Home = () => {
+  const data: MarkdownFile[] = getDocs();
   //console.log("data->", data);
 
   const sortedData = data.sort(

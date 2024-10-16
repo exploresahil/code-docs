@@ -1,4 +1,3 @@
-
 import fs from "fs";
 import path from "path";
 import { MarkdownFile } from "@/types/types";
@@ -17,7 +16,7 @@ const toSlug = (title: string): string => {
         .replace(/--+/g, "-");
 };
 
-export async function getDocs() {
+export function getDocs() {
     const markdownDir = path.join(process.cwd(), "markdowns");
     const files = fs.readdirSync(markdownDir);
 
