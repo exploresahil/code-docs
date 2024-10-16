@@ -26,16 +26,12 @@ export default function RootLayout({
   const fontClasses = useFonts();
   const data: MarkdownFile[] = getDocs();
 
-  const sortedData = data.sort(
-    (a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
-  );
-
   return (
     <html lang="en">
       <body className={fontClasses}>
         <Header />
         <main>
-          <Nav data={sortedData} />
+          <Nav data={data} />
           {children}
         </main>
       </body>
