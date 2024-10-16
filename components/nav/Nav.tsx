@@ -6,6 +6,7 @@ import { ChevronDown, ChevronRight } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import useResponsive from "@/hooks/useResponsive";
+import { Suspense } from "react";
 
 const Nav = ({ data }: { data: MarkdownFile[] }) => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -22,8 +23,7 @@ const Nav = ({ data }: { data: MarkdownFile[] }) => {
     return () => clearTimeout(timer);
   }, [searchTerm]);
 
- useEffect(() => {
-
+  useEffect(() => {
     if (isMobile) {
       document.body.style.overflowY = openMenu ? "hidden" : "auto";
     }
@@ -72,13 +72,15 @@ const Nav = ({ data }: { data: MarkdownFile[] }) => {
                   .includes(debouncedSearchTerm.toLowerCase())
               )
               .map((object) => (
-                <Link
-                  key={object.id}
-                  href={`/${object.id}`}
-                  onClick={() => setOpenMenu(false)}
-                >
-                  {object.title}
-                </Link>
+                <Suspense fallback={<p>Loading...</p>}>
+                  <Link
+                    key={object.id}
+                    href={`/${object.id}`}
+                    onClick={() => setOpenMenu(false)}
+                  >
+                    {object.title}
+                  </Link>
+                </Suspense>
               ))}
         </div>
       )}
