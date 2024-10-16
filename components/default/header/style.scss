@@ -17,6 +17,14 @@ header {
     display: flex;
     align-items: center;
 
+    @include breakpoint(medium) {
+      padding-inline: 2vw;
+    }
+
+    @include breakpoint(large) {
+      padding-inline: 20vw;
+    }
+
     a {
       font-weight: 500;
 

@@ -11,6 +11,10 @@
         padding-inline: 2vw;
     }
 
+    @include breakpoint(large) {
+       padding-inline: rem(10) rem(0);
+    }
+
     .date_time {
         display: flex;
         gap: rem(10);

@@ -4,9 +4,9 @@ import Markdown from "markdown-to-jsx";
 import "./style.scss";
 
 const Docs = ({ data }: { data: MarkdownFile }) => {
+
   return (
     <div id="Docs">
-      {" "}
       <div className="date_time">
       <p>Created At: {new Date(data.createdAt).toLocaleString()}</p>
       <p>Updated At: {new Date(data.updatedAt).toLocaleString()}</p>

@@ -1,4 +1,3 @@
-// useFonts.ts
 import localFont from "next/font/local";
 import { GeistMono } from "geist/font/mono";
 import { GeistSans } from "geist/font/sans";

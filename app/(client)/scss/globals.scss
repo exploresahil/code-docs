@@ -9,10 +9,20 @@ main {
    flex-direction: row;
   }
 
-  #Home, #docs {
-    width: 75%;
-    padding-inline: 2vw;
+   @include breakpoint(large) {
+      padding-inline: 20vw;
+    }
   }
+
+  #Home, #docs {
+    @include breakpoint(medium) {
+      width: 75%;
+      padding-inline: 2vw;
+    }
+
+    @include breakpoint(large) {
+       padding-inline: rem(20) 6vw;
+    }
 }
 
 

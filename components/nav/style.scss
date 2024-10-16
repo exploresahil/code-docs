@@ -1,7 +1,6 @@
 @use "@/app/(client)/scss/variables" as *;
 
 nav {
-  gap: rem(10);
   position: sticky;
   top: rem(60);
   z-index: 10;
@@ -11,7 +10,10 @@ nav {
 
   @include breakpoint(medium) {
     width: 25%;
-   }
+    height: calc(100vh - rem(60));
+    border-bottom: none;
+    border-right: $b-border;
+  }
 
   button {
     width: 100%;
@@ -28,6 +30,12 @@ nav {
     @include breakpoint(medium) {
       padding-inline: 2vw;
     }
+
+    @include breakpoint(large) {
+        padding-inline: rem(0) rem(10);;
+        margin-block: rem(5) rem(0);;
+    }
+  
   }
 
   .menu {
@@ -45,8 +53,13 @@ nav {
     z-index: 10;
 
     @include breakpoint(medium) {
-      width: 25%;
+      width: 100%;
       padding-inline: 2vw;
+      position: static;
+    }
+
+     @include breakpoint(large) {
+      padding-inline: rem(0) rem(10);;
     }
 
     .search {
@@ -58,7 +71,13 @@ nav {
       flex-direction: column;
       gap: rem(10);
       background-color: $c-bg;
-      z-index: 10;  
+      z-index: 10;
+
+      @include breakpoint(medium) {
+       position: static;
+        padding-block: rem(10);
+
+      }
     }
 
     a {

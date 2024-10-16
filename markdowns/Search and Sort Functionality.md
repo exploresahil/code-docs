@@ -7,8 +7,9 @@ This document outlines the implementation of a search and sort feature within a 
 <br>
 ##Prerequisites
 <br>
-- Basic knowledge of React and JSX.
-- Familiarity with React hooks (useState and useEffect).
+- React: Basic knowledge of React and JSX.
+- TypeScript: This hook is written in TypeScript, so your project should be set up to support TypeScript.
+- React hooks knowledge: Familiarity with React hooks (useState and useEffect).
 - A dataset to work with, such as an array of objects.
 <br>
 

@@ -5,11 +5,14 @@ import { MarkdownFile } from "@/types/types";
 import { ChevronDown, ChevronRight } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import useResponsive from "@/hooks/useResponsive";
 
 const Nav = ({ data }: { data: MarkdownFile[] }) => {
   const [searchTerm, setSearchTerm] = useState("");
   const [debouncedSearchTerm, setDebouncedSearchTerm] = useState("");
   const [openMenu, setOpenMenu] = useState(false);
+
+  const { isMobile } = useResponsive();
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -19,16 +22,38 @@ const Nav = ({ data }: { data: MarkdownFile[] }) => {
     return () => clearTimeout(timer);
   }, [searchTerm]);
 
-  useEffect(() => {
-    document.body.style.overflow = openMenu ? "hidden" : "auto";
-  }, [openMenu])
+ useEffect(() => {
 
-  const chevSize = 20 
+    if (isMobile) {
+      document.body.style.overflowY = openMenu ? "hidden" : "auto";
+    }
+  }, [openMenu, isMobile]);
+
+  const chevSize = 20;
+
+  const handleMenuToggle = () => {
+    if (isMobile) {
+      setOpenMenu((prevOpenMenu) => !prevOpenMenu);
+    }
+  };
 
   return (
-    <nav id="Nav" className={openMenu? "open" : ""}>
-      <button onClick={() => setOpenMenu(!openMenu)}>{openMenu ? <span><ChevronDown size={chevSize}/></span> : <span><ChevronRight size={chevSize}/></span>}Menu</button>
-      {openMenu && (
+    <nav id="Nav" className={openMenu && isMobile ? "open" : ""}>
+      {isMobile && (
+        <button onClick={handleMenuToggle}>
+          {openMenu ? (
+            <span>
+              <ChevronDown size={chevSize} />
+            </span>
+          ) : (
+            <span>
+              <ChevronRight size={chevSize} />
+            </span>
+          )}
+          Menu
+        </button>
+      )}
+      {(openMenu || !isMobile) && (
         <div className="menu">
           <div className="search">
             <h5>Code:</h5>
