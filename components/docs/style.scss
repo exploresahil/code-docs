@@ -50,10 +50,11 @@
 
   h1 {
     padding-right: 4vw;
-  }
 
-  #docsSpan {
-    color: $c-text-highlight;
-    opacity: 0.7;
+    #docsSpan {
+      color: $c-text-highlight;
+      opacity: 0.7;
+      display: inline-block;
+    }
   }
 }
