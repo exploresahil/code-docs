@@ -6,6 +6,10 @@
   flex-direction: column;
   gap: rem(20);
 
+  #sr {
+    display: none;
+  }
+
   @include breakpoint(medium) {
     width: 100%;
     max-width: 100%;
@@ -38,7 +42,7 @@
     }
 
     #tag {
-      background-color: #2d2d2d;
+      background-color: rgba(224, 224, 85, 0.2);
       padding: rem(1) rem(4);
       border-radius: rem(5);
     }

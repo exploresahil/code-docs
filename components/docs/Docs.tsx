@@ -4,6 +4,8 @@ import Markdown from "markdown-to-jsx";
 import "./style.scss";
 
 const Docs = ({ data }: { data: Data }) => {
+  //console.log("data.content->", data.content);
+
   return (
     <div id="Docs">
       <div className="date_time">

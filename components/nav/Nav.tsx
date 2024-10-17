@@ -7,6 +7,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import useResponsive from "@/hooks/useResponsive";
 import { Suspense } from "react";
+import { usePathname } from "next/navigation";
 
 const Nav = ({ data }: { data: MarkdownFile[] }) => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -14,6 +15,7 @@ const Nav = ({ data }: { data: MarkdownFile[] }) => {
   const [openMenu, setOpenMenu] = useState(false);
 
   const { isMobile } = useResponsive();
+  const pathname = usePathname();
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -46,9 +48,17 @@ const Nav = ({ data }: { data: MarkdownFile[] }) => {
   const filteredData = data
     .map((object) => ({
       ...object,
-      data: object.data.filter((item) =>
-        item.title.toLowerCase().includes(debouncedSearchTerm.toLowerCase())
-      ),
+      data: object.data
+        .filter(
+          (item) =>
+            item.title
+              .toLowerCase()
+              .includes(debouncedSearchTerm.toLowerCase()) ||
+            object.category
+              ?.toLowerCase()
+              .includes(debouncedSearchTerm.toLowerCase())
+        )
+        .sort((a, b) => a.title.localeCompare(b.title)),
     }))
     .filter((object) => object.data.length > 0);
 
@@ -105,6 +115,8 @@ const Nav = ({ data }: { data: MarkdownFile[] }) => {
                         {
                           const isNew = isLessThan7Days(item.createdAt);
                           const isUpdated = isLessThan7Days(item.updatedAt);
+                          const isActive = pathname === `/${item.id}`;
+
                           return (
                             <Suspense
                               fallback={<p>Loading...</p>}
@@ -113,6 +125,7 @@ const Nav = ({ data }: { data: MarkdownFile[] }) => {
                               <Link
                                 href={`/${item.id}`}
                                 onClick={() => setOpenMenu(false)}
+                                className={isActive ? "active" : ""}
                               >
                                 {item.title}{" "}
                                 {isNew ? (
@@ -133,6 +146,7 @@ const Nav = ({ data }: { data: MarkdownFile[] }) => {
                       {
                         const isNew = isLessThan7Days(item.createdAt);
                         const isUpdated = isLessThan7Days(item.updatedAt);
+                        const isActive = pathname === `/${item.id}`;
                         return (
                           <Suspense
                             fallback={<p>Loading...</p>}
@@ -141,6 +155,7 @@ const Nav = ({ data }: { data: MarkdownFile[] }) => {
                             <Link
                               href={`/${item.id}`}
                               onClick={() => setOpenMenu(false)}
+                              className={isActive ? "active" : ""}
                             >
                               {item.title}{" "}
                               {isNew ? (

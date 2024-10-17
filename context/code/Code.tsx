@@ -1,5 +1,6 @@
 "use client";
 
+import SASSIcon from "@/components/icons/SASSIcon";
 import "./style.scss";
 import TSIcon from "@/components/icons/TSIcon";
 import { Check, Copy } from "lucide-react";
@@ -18,7 +19,9 @@ const Code = ({ children, className }: CodeProps) => {
   const languageMatch = className && className.match(/lang-(\w+)/);
   const language = languageMatch ? languageMatch[1] : "javascript";
 
-  const match = className && className.match(/tsx:([^ ]+)/);
+  const match =
+    (className && className.match(/tsx:([^ ]+)/)) ||
+    (className && className.match(/scss:([^ ]+)/));
   const title = match ? match[1] : "Code Snippet";
 
   const customStyle = {
@@ -29,29 +32,29 @@ const Code = ({ children, className }: CodeProps) => {
       lineHeight: "1.2rem",
     },
     operator: {
-      color: "hsl(0,0%,93%)"
+      color: "hsl(0,0%,93%)",
     },
     keyword: {
-      color : "hsl(341,90%,67%)"
+      color: "hsl(341,90%,67%)",
     },
     function: {
-      color : "hsl(341,90%,67%)"
+      color: "hsl(341,90%,67%)",
     },
     "attr-name": {
-      color : "hsl(275,80%,71%)"
+      color: "hsl(275,80%,71%)",
     },
     "attr-value": {
-      color: "hsl(131,43%,57%)"
+      color: "hsl(131,43%,57%)",
     },
-    string:{
-      color: "hsl(131,43%,57%)"
+    string: {
+      color: "hsl(131,43%,57%)",
     },
     tag: {
-      color: "hsl(131,43%,57%)"
-    }
+      color: "hsl(131,43%,57%)",
+    },
   };
 
- //console.log('customStyle->',customStyle)
+  //console.log('customStyle->',customStyle)
 
   const handleCopy = () => {
     if (navigator.clipboard) {
@@ -69,6 +72,8 @@ const Code = ({ children, className }: CodeProps) => {
       <div className="title">
         <div className="left">
           {language === "tsx" && <TSIcon />}
+          {language === "scss" && <SASSIcon />}
+
           <p>{title}</p>
         </div>
         {copy ? (

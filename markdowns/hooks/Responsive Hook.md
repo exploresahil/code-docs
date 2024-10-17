@@ -1,11 +1,11 @@
-# Responsive Hook
+# 1. Responsive Hook
 
 <br>
 
 ## Overview
 
 <br>
-The useResponsive hook is a custom hook in React that allows developers to detect and respond to changes in the browser's viewport width, making it easier to create responsive designs. By tracking the screen width, the hook assigns a breakpoint value and provides helpful boolean flags (isMobile, isTablet, isDesktop, and isXLarge) to indicate which category the current screen size falls into.
+The <span id="tag">useResponsive</span> hook is a custom hook in React that allows developers to detect and respond to changes in the browser's viewport width, making it easier to create responsive designs. By tracking the screen width, the hook assigns a <span id="tag">breakpoint</span> value and provides helpful boolean flags (<span id="tag">isMobile</span>, <span id="tag">isTablet</span>, <span id="tag">isDesktop</span>, and <span id="tag">isXLarge</span>) to indicate which category the current screen size falls into.
 <br>
 <br>
 This hook simplifies the process of making components adapt to various screen sizes, such as mobile, tablet, desktop, and extra-large screens, by providing dynamic updates whenever the window is resized.
@@ -18,8 +18,8 @@ This hook simplifies the process of making components adapt to various screen si
 
 - **React:** Basic knowledge of React and JSX.
 - **TypeScript:** This hook is written in TypeScript, so your project should be set up to support TypeScript.
-- **React hooks knowledge:** Familiarity with React hooks (useState and useEffect).
-- **Browser APIs:** Basic knowledge of browser window APIs, particularly the resize event and window.innerWidth.  
+- **React hooks knowledge:** Familiarity with React hooks (<span id="tag">useState</span> and <span id="tag">useEffect</span>).
+- **Browser APIs:** Basic knowledge of browser <span id="tag">window</span> APIs, particularly the <span id="tag">resize</span> event and <span id="tag">window.innerWidth</span>.  
   <br>
 
 <br>
@@ -28,13 +28,11 @@ This hook simplifies the process of making components adapt to various screen si
 
 <br>
 
-1. Create the useResponsive Hook
+1. Create the <span id="tag">useResponsive</span> Hook
    <br>
    <br>
 
    ```tsx:@/hooks/useResponsive.ts
-   'use client'; // Required for Next.js apps
-
    import { useState, useEffect } from "react";
 
    type Breakpoint = "small" | "medium" | "large" | "xLarge";
@@ -94,38 +92,40 @@ This hook simplifies the process of making components adapt to various screen si
 
 <br>
 
-- **State Initialization (useState):**
-  The breakpoint state holds the current screen size category. By default, it's initialized to "small".
+- **State Initialization (<span id="tag">useState</span>):**
+  The <span id="tag">breakpoint</span> state holds the current screen size category. By default, it's initialized to <span id="tag">"small"</span>.
 
-- **Effect Hook (useEffect):**
-  This effect listens for resize events on the window. Every time the browser is resized, it updates the breakpoint value based on the new window width.
+- **Effect Hook (<span id="tag">useEffect</span>):**
+  This effect listens for <span id="tag">resize</span> events on the <span id="tag">window</span>. Every time the browser is resized, it updates the <span id="tag">breakpoint</span> value based on the new window width.
 
 - **getBreakpoint Function:**
   This helper function determines the breakpoint category based on the current width. The categories are:
   <br>
   <br>
 
-      ```tsx:@/hooks/useResponsive.ts
-      "small": for screens narrower than 820px (mobile)
-      "medium": for screens between 820px and 1024px (tablet)
-      "large": for screens between 1025px and 2040px (desktop)
-      "xLarge": for screens wider than 2040px (extra-large screens)
-      ```
+  ```tsx:@/hooks/useResponsive.ts
+    <span id="tag">"small"</span>: for screens narrower than 820px (mobile)
+    <span id="tag">"medium"</span>: for screens between 820px and 1024px (tablet)
+    <span id="tag">"large"</span>: for screens between 1025px and 2040px (desktop)
+    <span id="tag">"xLarge"</span>: for screens wider than 2040px (extra-large screens)
+  ```
 
   <br>
 
 - **Responsive Helpers:**
-  Four boolean values (isMobile, isTablet, isDesktop, and isXLarge) help developers to check the current screen size category easily within their components.
+  Four boolean values (<span id="tag">isMobile</span>, <span id="tag">isTablet</span>, <span id="tag">isDesktop</span>, and <span id="tag">isXLarge</span>) help developers to check the current screen size category easily within their components.
 
 - **useBreakpoint Utility:**
-  The useBreakpoint utility allows developers to determine the breakpoint for any arbitrary width. This could be useful if you want to check what category a given width falls into, aside from the current window width.
+  The <span id="tag">useBreakpoint</span> utility allows developers to determine the <span id="tag">breakpoint</span> for any arbitrary width. This could be useful if you want to check what category a given width falls into, aside from the current window width.
 
 <br>
-2. Using useResponsive in Components
+2. Using <span id="tag">useResponsive</span> in Components
     <br>
     <br>
 
-    ```tsx:@/hooks/useResponsive.ts
+    ```tsx:@/component/ResponsiveComponent.tsx
+    "use client"; // For Next.js applications
+
     import React from "react";
     import useResponsive from "./useResponsive"; // Import the hook
 
@@ -161,7 +161,7 @@ This hook simplifies the process of making components adapt to various screen si
 ## Summary
 
 <br>
-The useResponsive hook provides an easy-to-implement and versatile way to handle responsive behavior in your React application. With it, you can adapt to different screen sizes and change the appearance or functionality of your components accordingly. This can be a powerful tool for creating responsive layouts, improving user experience across various devices, and optimizing your application for mobile, tablet, desktop, and extra-large screen resolutions.
+The <span id="tag">useResponsive</span> hook provides an easy-to-implement and versatile way to handle responsive behavior in your React application. With it, you can adapt to different screen sizes and change the appearance or functionality of your components accordingly. This can be a powerful tool for creating responsive layouts, improving user experience across various devices, and optimizing your application for mobile, tablet, desktop, and extra-large screen resolutions.
 <br>
 <br>
 
@@ -171,7 +171,7 @@ The useResponsive hook provides an easy-to-implement and versatile way to handle
 
 - **Breakpoints:** The hook defines four screen sizes: small (mobile), medium (tablet), large (desktop), and xLarge (extra-large screens).
 - **Real-Time Responsiveness:** The hook updates automatically when the window size changes.
-- **Utilities:** The hook provides helper flags (isMobile, isTablet, isDesktop, and isXLarge) to easily determine the current screen size category.
+- **Utilities:** The hook provides helper flags (<span id="tag">isMobile</span>, <span id="tag">isTablet</span>, <span id="tag">isDesktop</span>, and <span id="tag">isXLarge</span>) to easily determine the current screen size category.
   <br>
   <br>
 
@@ -179,9 +179,9 @@ The useResponsive hook provides an easy-to-implement and versatile way to handle
 
 <br>
 
-- **breakpoint:** Indicates the current screen size category ("small", "medium", "large", "xLarge").
-- **isMobile:** A boolean that is true when the screen size is small (typically mobile).
-- **isTablet:** A boolean that is true when the screen size is medium (typically tablet).
-- **isDesktop:** A boolean that is true when the screen size is large (typically desktop).
-- **isXLarge:** A boolean that is true when the screen size is extra-large (for wide monitors).
-- **useBreakpoint:** A utility function to get the breakpoint for any specific width.
+- <span id="tag">breakpoint</span>: Indicates the current screen size category ("small", "medium", "large", "xLarge").
+- <span id="tag">isMobile</span>: A boolean that is true when the screen size is small (typically mobile).
+- <span id="tag">isTablet</span>: A boolean that is true when the screen size is medium (typically tablet).
+- <span id="tag">isDesktop</span>: A boolean that is true when the screen size is large (typically desktop).
+- <span id="tag">isXLarge</span>: A boolean that is true when the screen size is extra-large (for wide monitors).
+- <span id="tag">useBreakpoint</span>: A utility function to get the breakpoint for any specific width.
