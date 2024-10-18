@@ -45,22 +45,34 @@ const Nav = ({ data }: { data: MarkdownFile[] }) => {
     return new Date(date) > sevenDaysAgo;
   };
 
-  const filteredData = data
-    .map((object) => ({
-      ...object,
-      data: object.data
-        .filter(
-          (item) =>
-            item.title
-              .toLowerCase()
-              .includes(debouncedSearchTerm.toLowerCase()) ||
+  const filteredData = data.map((object) => ({
+    category: object.category,
+
+    data: object.data
+      .filter((item) => {
+        console.log(
+          item.title,
+          debouncedSearchTerm,
+          item.title
+            .toLowerCase()
+            .includes(debouncedSearchTerm.toLowerCase()) ||
             object.category
               ?.toLowerCase()
               .includes(debouncedSearchTerm.toLowerCase())
-        )
-        .sort((a, b) => a.title.localeCompare(b.title)),
-    }))
-    .filter((object) => object.data.length > 0);
+        );
+
+        return (
+          item.title
+            .toLowerCase()
+            .includes(debouncedSearchTerm.toLowerCase()) ||
+          object.category
+            ?.toLowerCase()
+            .includes(debouncedSearchTerm.toLowerCase())
+        );
+      })
+
+      .sort((a, b) => a.title.localeCompare(b.title)),
+  }));
 
   const loaderSize = 20;
 
@@ -105,10 +117,11 @@ const Nav = ({ data }: { data: MarkdownFile[] }) => {
           {filteredData.length === 0 ? (
             <span className="notFound">Not Found!</span>
           ) : (
-            filteredData.map((object) => (
-              <div className="nav_category">
-                {object.category ? (
-                  <>
+            filteredData.map(
+              (object, i) =>
+                object.category &&
+                object.data.length > 0 && (
+                  <div key={crypto.randomUUID()} className="nav_category">
                     <p>{object.category}:</p>
                     <div className="links">
                       {object.data.map((item) => {
@@ -119,8 +132,8 @@ const Nav = ({ data }: { data: MarkdownFile[] }) => {
 
                           return (
                             <Suspense
+                              key={crypto.randomUUID()}
                               fallback={<p>Loading...</p>}
-                              key={object.category}
                             >
                               <Link
                                 href={`/${item.id}`}
@@ -139,39 +152,9 @@ const Nav = ({ data }: { data: MarkdownFile[] }) => {
                         }
                       })}
                     </div>
-                  </>
-                ) : (
-                  <>
-                    {object.data.map((item) => {
-                      {
-                        const isNew = isLessThan7Days(item.createdAt);
-                        const isUpdated = isLessThan7Days(item.updatedAt);
-                        const isActive = pathname === `/${item.id}`;
-                        return (
-                          <Suspense
-                            fallback={<p>Loading...</p>}
-                            key={object.category}
-                          >
-                            <Link
-                              href={`/${item.id}`}
-                              onClick={() => setOpenMenu(false)}
-                              className={isActive ? "active" : ""}
-                            >
-                              {item.title}{" "}
-                              {isNew ? (
-                                <span>New!</span>
-                              ) : isUpdated ? (
-                                <span>Updated!</span>
-                              ) : null}
-                            </Link>
-                          </Suspense>
-                        );
-                      }
-                    })}
-                  </>
-                )}
-              </div>
-            ))
+                  </div>
+                )
+            )
           )}
         </div>
       )}
