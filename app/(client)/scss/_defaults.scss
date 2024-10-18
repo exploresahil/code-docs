@@ -245,15 +245,19 @@ input:-webkit-autofill:active {
 table {
   width: 100%;
   border-collapse: collapse;
-  margin: 20px 0;
   font-family: inherit;
   font-size: rem(14);
 }
 th,
 td {
-  padding: rem(10) rem(15);
+  padding: rem(5) rem(10);
   border: $b-border;
   text-align: left;
+  line-height: rem(18);
+
+  @include breakpoint(medium) {
+    padding: rem(10) rem(15);
+  }
 }
 
 th {
