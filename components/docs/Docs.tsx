@@ -8,10 +8,7 @@ const Docs = ({ data }: { data: Data }) => {
 
   return (
     <div id="Docs">
-      <div className="date_time">
-        <p>Created At: {new Date(data.createdAt).toLocaleDateString()}</p>
-        <p>Updated At: {new Date(data.updatedAt).toLocaleDateString()}</p>
-      </div>
+      <div className="date_time"></div>
       <Markdown
         className="md"
         options={{

@@ -50,17 +50,6 @@ const Nav = ({ data }: { data: MarkdownFile[] }) => {
 
     data: object.data
       .filter((item) => {
-        console.log(
-          item.title,
-          debouncedSearchTerm,
-          item.title
-            .toLowerCase()
-            .includes(debouncedSearchTerm.toLowerCase()) ||
-            object.category
-              ?.toLowerCase()
-              .includes(debouncedSearchTerm.toLowerCase())
-        );
-
         return (
           item.title
             .toLowerCase()
@@ -141,11 +130,6 @@ const Nav = ({ data }: { data: MarkdownFile[] }) => {
                                 className={isActive ? "active" : ""}
                               >
                                 {item.title}{" "}
-                                {isNew ? (
-                                  <span>New!</span>
-                                ) : isUpdated ? (
-                                  <span>Updated!</span>
-                                ) : null}
                               </Link>
                             </Suspense>
                           );
