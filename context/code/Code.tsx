@@ -3,7 +3,7 @@
 import SASSIcon from "@/components/icons/SASSIcon";
 import "./style.scss";
 import TSIcon from "@/components/icons/TSIcon";
-import { Check, Copy } from "lucide-react";
+import { Braces, Check, Code2, CodeIcon, Copy } from "lucide-react";
 import { useState } from "react";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { materialDark } from "react-syntax-highlighter/dist/esm/styles/prism";
@@ -21,7 +21,10 @@ const Code = ({ children, className }: CodeProps) => {
 
   const match =
     (className && className.match(/tsx:([^ ]+)/)) ||
-    (className && className.match(/scss:([^ ]+)/));
+    (className && className.match(/scss:([^ ]+)/)) ||
+    (className && className.match(/html:([^ ]+)/)) ||
+    (className && className.match(/js:([^ ]+)/)) ||
+    (className && className.match(/css:([^ ]+)/));
   const title = match ? match[1] : "Code Snippet";
 
   const customStyle = {
@@ -73,6 +76,9 @@ const Code = ({ children, className }: CodeProps) => {
         <div className="left">
           {language === "tsx" && <TSIcon />}
           {language === "scss" && <SASSIcon />}
+          {language === "html" && <CodeIcon size={16} color="red" />}
+          {language === "js" && <Braces size={16} color="red" />}
+          {language === "css" && <Braces size={16} color="red" />}
 
           <p>{title}</p>
         </div>
