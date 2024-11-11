@@ -323,7 +323,7 @@ header {
 
       <br>
 
-### 4. Building a Simple Application
+### Building a Simple Application
 
 <br>
 - Create a user input form that validates input and displays users in a list.
