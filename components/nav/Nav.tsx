@@ -39,11 +39,7 @@ const Nav = ({ data }: { data: MarkdownFile[] }) => {
     }
   };
 
-  const isLessThan7Days = (date: string) => {
-    const sevenDaysAgo = new Date();
-    sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7);
-    return new Date(date) > sevenDaysAgo;
-  };
+  //console.log("data->", data);
 
   const filteredData = data.map((object) => ({
     category: object.category,
@@ -111,12 +107,10 @@ const Nav = ({ data }: { data: MarkdownFile[] }) => {
                 object.category &&
                 object.data.length > 0 && (
                   <div key={crypto.randomUUID()} className="nav_category">
-                    <p>{object.category}:</p>
+                    <p>{object.category.replace(/\\\d\./, " - ")}:</p>
                     <div className="links">
                       {object.data.map((item) => {
                         {
-                          const isNew = isLessThan7Days(item.createdAt);
-                          const isUpdated = isLessThan7Days(item.updatedAt);
                           const isActive = pathname === `/${item.id}`;
 
                           return (

@@ -1,4 +1,4 @@
-# 3. JavaScript DOM Manipulation
+# 4. JavaScript DOM Manipulation
 
 <br>
 
