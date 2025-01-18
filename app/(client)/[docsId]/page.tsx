@@ -1,4 +1,5 @@
 import Docs from "@/components/docs/Docs";
+import HTTP from "@/components/extra/http-response-status-codes-and-their-meanings/HTTP";
 import { MarkdownFile, Data } from "@/types/types";
 import { getDocs } from "@/utils/GetDocs";
 
@@ -13,6 +14,14 @@ const Page = ({ params }: Props) => {
   const matchingData: Data | undefined = markdownFiles
     .flatMap((file) => file.data)
     .find((data) => data.id === slug);
+
+  if (slug === "http-response-status-codes-and-their-meanings") {
+    return (
+      <section id="docs">
+        <HTTP />
+      </section>
+    );
+  }
 
   if (!matchingData) {
     return <section id="docs">No Matching Data Found</section>;

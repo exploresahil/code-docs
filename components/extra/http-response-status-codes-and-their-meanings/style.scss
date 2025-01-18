@@ -1,0 +1,50 @@
+@use "@/app/(client)/scss/variables" as *;
+
+#Docs {
+  @include full-width;
+  display: flex;
+  flex-direction: column;
+  gap: rem(20);
+
+  @include breakpoint(medium) {
+    width: 100%;
+    max-width: 100%;
+    padding-inline: 2vw;
+  }
+
+  @include breakpoint(large) {
+    max-width: 100%;
+    padding-inline: rem(10) rem(0);
+  }
+
+  .input {
+    position: relative;
+
+    input {
+      padding-right: rem(30);
+    }
+
+    span {
+      position: absolute;
+      right: rem(6);
+      bottom: rem(4);
+    }
+  }
+
+  .content {
+    padding-bottom: rem(20);
+    .category_table {
+      padding-block: rem(10);
+
+      &:nth-of-type(1) {
+        padding-top: 0;
+      }
+
+      .category_title {
+        display: flex;
+        gap: rem(10);
+        padding-bottom: rem(10);
+      }
+    }
+  }
+}
